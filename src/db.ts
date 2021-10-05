@@ -25,7 +25,7 @@
         roomNumber: 210
         }
     ],
-    course: [
+    courses: [
         {
         id: 1,
         courseName: "RIF20",
@@ -35,14 +35,14 @@
         courseName: "RIF12"
         }
     ],
-    subject: [
+    subjects: [
         {
         id: 1,
         subjectName: "Keemia",
         },
         {
         id: 2,
-        subjectname: "Arvuti6petus"
+        subjectName: "Arvuti6petus"
         }
     ]
   

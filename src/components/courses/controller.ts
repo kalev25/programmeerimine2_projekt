@@ -1,85 +1,80 @@
 import { Request, Response } from 'express';
 import { servicesVersion } from 'typescript';
 import responseCodes from '../general/responseCodes';
-import teachersService from './service';
+import coursesService from './service';
 
-const teachersController = {
-getAllTeachers: (req: Request, res: Response) => {
-	const teachers = teachersService.getAllTeachers();
+const coursesController = {
+getAllCourses: (req: Request, res: Response) => {
+	const Courses = coursesService.getAllCourses();
 	return res.status(responseCodes.ok).json({
-		teachers,
+		Courses,
 	});
 
 },
 	
-getTeacherById: (req: Request, res: Response) => {
+getCourseById: (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
     if (!id) {
       return res.status(responseCodes.badRequest).json({
         error: 'No valid id provided',
       });
     }
-    const teacher = teachersService.getTeacherById(id);
-    if (!teacher) {	
+    const Course = coursesService.getCourseById(id);
+    if (!Course) {	
       return res.status(responseCodes.badRequest).json({
-        error: `No teacher found with id: ${id}`,
+        error: `No Course found with id: ${id}`,
       });
 	  
     }
     return res.status(responseCodes.ok).json({
-      teacher,
+      Course,
     });
 },
 
-removeTeacher: (req: Request, res: Response) => {
+removeCourse: (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id);
-    const deleted = teachersService.getTeacherById(id);
+    const deleted = coursesService.getCourseById(id);
     if (deleted) {
-        teachersService.removeTeacher(id);
+        coursesService.removeCourse(id);
         res.status(responseCodes.ok).json({
             deleted
         })
     }else{  
-        res.status(responseCodes.notFound).json({ message: "Teacher you are looking for does not exist"});
+        res.status(responseCodes.notFound).json({ message: "Course you are looking for does not exist"});
     }
 },
 
-updateTeacher: (req: Request, res: Response) => {
+updateCourse: (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
-    const { firstName, lastName } = req.body;
+    const { courseName } = req.body;
     if (!id) {
       return res.status(responseCodes.badRequest).json({
         error: 'No valid id provided',
       });
     }
-    if (!firstName && !lastName) {
+    if (!courseName) {
       return res.status(responseCodes.badRequest).json({
         error: 'Nothing to update',
       });
     }
-    const teacher = teachersService.getTeacherById(id);
-    if (!teacher) {
+    const Course = coursesService.getCourseById(id);
+    if (!Course) {
       return res.status(responseCodes.badRequest).json({
-        error: `No teacher found with id: ${id}`,
+        error: `No Course found with id: ${id}`,
       });
     }
-    teachersService.updateTeacher({ id, firstName, lastName });
+    coursesService.updateCourse({ id, courseName });
     return res.status(responseCodes.noContent).json({});
   },
 
-  createTeacher: (req: Request, res: Response) => {
-    const { firstName, lastName } = req.body;
-    if (!firstName) {
+  createCourse: (req: Request, res: Response) => {
+    const { CourseName } = req.body;
+    if (!CourseName) {
       return res.status(responseCodes.badRequest).json({
-        error: 'First name is required',
+        error: 'Course number is required',
       });
     }
-    if (!lastName) {
-      return res.status(responseCodes.badRequest).json({
-        error: 'Last name is required',
-      });
-    }
- 	const id = teachersService.createTeacher(firstName, lastName);
+ 	const id = coursesService.createCourse(CourseName);
     return res.status(responseCodes.created).json({
       id,
     });
@@ -87,4 +82,4 @@ updateTeacher: (req: Request, res: Response) => {
   
 };
 
-export default teachersController;
+export default coursesController;

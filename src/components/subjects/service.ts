@@ -1,42 +1,38 @@
 import db from '../../db';
-import Teacher from './interfaces';
+import Subject from './interfaces';
 
-const teachersService = {
-  getAllTeachers: (): Teacher[] => {
-    const { teachers } = db;
-    return teachers;
+const subjectsService = {
+  getAllsubjects: (): Subject[] => {
+    const { subjects } = db;
+    return subjects;
   },
   /**
-   * Returns teacher or undefined
+   * Returns subject or undefined
    */
-  getTeacherById: (id: number): Teacher | undefined => {
-    const teacher = db.teachers.find((element) => element.id === id);
-    return teacher;
+  getsubjectById: (id: number): Subject | undefined => {
+    const subject = db.subjects.find((element) => element.id === id);
+    return subject;
   },
-  removeTeacher: (id: number): boolean => {
-	db.teachers = db.teachers.filter(teacher => teacher.id !== id);
+  removesubject: (id: number): boolean => {
+	db.subjects = db.subjects.filter(subject => subject.id !== id);
     return true;
   },
-  createTeacher: (firstName: string, lastName: string) => {
-    const id = db.teachers.length + 1;
-    db.teachers.push({
+  createsubject: (subjectName: string) => {
+    const id = db.subjects.length + 1;
+    db.subjects.push({
       id,
-      firstName,
-      lastName,
+      subjectName,
     });
     return id;
   },
-  updateTeacher: (data: { id: number, firstName: string, lastName: string}): boolean => {
-    const { id, firstName, lastName } = data;
-    const index = db.teachers.findIndex((element) => element.id === id);
-    if (firstName) {
-      db.teachers[index].firstName = firstName;
-    }
-    if (lastName) {
-      db.teachers[index].lastName = lastName;
+  updatesubject: (data: { id: number, subjectName: string}): boolean => {
+    const { id, subjectName} = data;
+    const index = db.subjects.findIndex((element) => element.id === id);
+    if (subjectName) {
+      db.subjects[index].subjectName = subjectName;
     }
     return true;
   },
 };
 
-export default teachersService;
+export default subjectsService;

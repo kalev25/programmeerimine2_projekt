@@ -1,16 +1,9 @@
 /**
  * User interface
  */
- interface Teacher {
+ interface Course {
   id: number;
-  firstName: string;
-  lastName: string;
+  courseName: string;
 }
 
-interface UpdateTeacher {
-  id: number;
-  firstName?: string;
-  lastName?: string;
-}
-
-export default Teacher;
+export default Course;

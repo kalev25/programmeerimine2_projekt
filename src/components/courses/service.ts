@@ -1,42 +1,38 @@
 import db from '../../db';
-import Teacher from './interfaces';
+import Course from './interfaces';
 
-const teachersService = {
-  getAllTeachers: (): Teacher[] => {
-    const { teachers } = db;
-    return teachers;
+const coursesService = {
+  getAllCourses: (): Course[] => {
+    const { courses } = db;
+    return courses;
   },
   /**
-   * Returns teacher or undefined
+   * Returns course or undefined
    */
-  getTeacherById: (id: number): Teacher | undefined => {
-    const teacher = db.teachers.find((element) => element.id === id);
-    return teacher;
+  getCourseById: (id: number): Course | undefined => {
+    const course = db.courses.find((element) => element.id === id);
+    return course;
   },
-  removeTeacher: (id: number): boolean => {
-	db.teachers = db.teachers.filter(teacher => teacher.id !== id);
+  removeCourse: (id: number): boolean => {
+	db.courses = db.courses.filter(course => course.id !== id);
     return true;
   },
-  createTeacher: (firstName: string, lastName: string) => {
-    const id = db.teachers.length + 1;
-    db.teachers.push({
+  createCourse: (courseName: string) => {
+    const id = db.courses.length + 1;
+    db.courses.push({
       id,
-      firstName,
-      lastName,
+      courseName,
     });
     return id;
   },
-  updateTeacher: (data: { id: number, firstName: string, lastName: string}): boolean => {
-    const { id, firstName, lastName } = data;
-    const index = db.teachers.findIndex((element) => element.id === id);
-    if (firstName) {
-      db.teachers[index].firstName = firstName;
-    }
-    if (lastName) {
-      db.teachers[index].lastName = lastName;
+  updateCourse: (data: { id: number, courseName: string}): boolean => {
+    const { id, courseName} = data;
+    const index = db.courses.findIndex((element) => element.id === id);
+    if (courseName) {
+      db.courses[index].courseName = courseName;
     }
     return true;
   },
 };
 
-export default teachersService;
+export default coursesService;
