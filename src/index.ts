@@ -1,12 +1,10 @@
 /**
 * Import express framework
 */
-import express, { Request, Response, Application, request, response} from "express";
-import { DebugLoggerFunction } from "util";
+import express, { Request, Response, Application } from "express";
 const app: Application = express();
 app.use(express.json());
 
-import db from './db';
 import teachersController from './components/teachers/controller';
 import roomsController from './components/rooms/controller';
 import subjectsController from './components/subjects/controller';
@@ -16,18 +14,22 @@ import responseCodes from './components/general/responseCodes';
 import { port } from './components/general/settings';
 import logger from './components/general/loggerMiddleware';
 
+// Middleware registreerimine
+app.use(logger)
 
 //const port: number = 4000;
 const notFound: number = responseCodes.notFound;
 
 
-/// TEAHCERS ENDPOINT
+
 
 app.get("/ping", (req: Request, res: Response) => {
     res.status(responseCodes.ok).json({
         message: "Hello world!",
     });
 });
+
+/// TEAHCERS ENDPOINT
 
 app.get('/teachers', teachersController.getAllTeachers);
 app.get("/teachers/:id", teachersController.getTeacherById);

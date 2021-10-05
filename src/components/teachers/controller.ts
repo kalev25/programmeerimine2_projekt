@@ -1,7 +1,12 @@
-import { Request, Response } from 'express';
+import { Request, Response, Application } from 'express';
 import { servicesVersion } from 'typescript';
 import responseCodes from '../general/responseCodes';
 import teachersService from './service';
+
+
+
+
+
 
 const teachersController = {
 getAllTeachers: (req: Request, res: Response) => {
@@ -71,7 +76,7 @@ updateTeacher: (req: Request, res: Response) => {
     const { firstName, lastName } = req.body;
     if (!firstName) {
       return res.status(responseCodes.badRequest).json({
-        error: 'First name is required',
+        error: 'Firstsa name is required',
       });
     }
     if (!lastName) {
